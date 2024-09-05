@@ -16,18 +16,7 @@ menu:
     - name: Home
       url: ""
       weight: 1
-    - name: About
-      url: "about/"
-      weight: 2
-    - name: Categories
-      url: "categories/"
-      weight: 3
-    - name: Tags
-      url: "tags/"
-      weight: 4
-    - name: Subscribe
-      url: "index.xml"
-
+      
 params:
   description: "Prediction blog for the 2024 U.S. Presidential Election."
   footer: "Theme from &copy; [Yihui Xie](https://yihui.org) 2017 -- {Year}."
