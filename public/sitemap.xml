@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://www.matthewdardet.com/example-blog-blogdown/post/1/01/01/1-introduction/</loc>
-  </url><url>
-    <loc>https://www.matthewdardet.com/example-blog-blogdown/categories/</loc>
+    <loc>https://www.matthewdardet.com/example-blog-blogdown/post/2024/09/05/1-introduction/</loc>
+    <lastmod>2024-09-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://www.matthewdardet.com/example-blog-blogdown/</loc>
+    <lastmod>2024-09-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://www.matthewdardet.com/example-blog-blogdown/post/</loc>
+    <lastmod>2024-09-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.matthewdardet.com/example-blog-blogdown/categories/</loc>
   </url><url>
     <loc>https://www.matthewdardet.com/example-blog-blogdown/tags/</loc>
   </url>
