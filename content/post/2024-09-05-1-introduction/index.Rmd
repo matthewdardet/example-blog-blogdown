@@ -1,10 +1,106 @@
 ---
 title: 1. Introduction
-author: Matthew E. dardet
-date: '2024-09-05'
+author: Matthew E. Dardet
+date: "*`r format(Sys.time(), '%A, %B %e, %Y')`*"
 slug: 1-introduction
 categories: []
 tags: []
 ---
 
-# hello world!
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+####----------------------------------------------------------#
+#### Preamble
+####----------------------------------------------------------#
+
+# Load libraries.
+## install via `install.packages("name")`
+library(ggplot2)
+library(maps)
+library(tidyverse)
+
+####----------------------------------------------------------#
+#### Read and clean presidential popular vote.
+####----------------------------------------------------------#
+
+# Read presidential popular vote. 
+d_popvote <- read_csv("data/popvote_1948-2020.csv")
+
+# Pivot data to wide format with party names as columns and two-party vote share as values.
+d_popvote_wide <- d_popvote |>
+  select(year, party, pv2p) |>
+  pivot_wider(names_from = party, values_from = pv2p)
+
+# Modify winner column to show "D" if Democrats win and "R" if Republicans win. 
+d_popvote_wide <- d_popvote_wide |> 
+  mutate(winner = case_when(democrat > republican ~ "D",
+                            TRUE ~ "R"))
+```
+
+``````{r, echo = FALSE, message = FALSE, warning = FALSE}
+####----------------------------------------------------------#
+#### Visualize trends in national presidential popular vote. 
+####----------------------------------------------------------#
+
+# Example: bad histogram; unpleasant bin width and fill!
+plt.1 <- ggplot(d_popvote, aes(x = pv2p)) + 
+    geom_histogram() + 
+    labs(x = "Two-Party Vote Share", 
+         y = "Count", 
+         title = "Distribution of Two-Party Vote Share (1948-2020)")
+
+# Example: better histogram.
+plt.2 <- ggplot(d_popvote, aes(x = pv2p)) + 
+  geom_histogram(bins = 10, color = "black", fill = "goldenrod2") + 
+  theme_bw() +
+  labs(x = "Two-Party Vote Share", 
+       y = "Count", 
+       title = "Distribution of Two-Party Vote Share (1948-2020)")
+
+# Example: barplot (+ custom colors).
+plt.3 <- ggplot(d_popvote, aes(x = year, y = pv2p, fill = party)) +
+    geom_bar(stat = "identity") +
+    scale_fill_manual(values = c("dodgerblue4", "firebrick1")) 
+
+# Example: lineplot (+ custom colors + nicer theme).
+plt.4 <- ggplot(d_popvote, aes(x = year, y = pv2p, colour = party)) +
+    geom_line() +
+    scale_color_manual(values = c("dodgerblue4", "firebrick1")) + 
+    theme_bw()
+
+# Example: bad line plot; opaque background, "too much ink", no legend, small font. Yuck! 
+plt.5 <- ggplot(d_popvote, aes(x = year, y = pv2p, colour = party)) +
+    geom_line(stat = "identity") + 
+    theme_dark() +
+    theme(legend.position = "none", axis.title = element_text(size = 5))
+
+# Example: good line plot: high contrast, "minimal ink", legend, detailed x-ticks, larger font.
+plt.6 <- ggplot(d_popvote, aes(x = year, y = pv2p, colour = party)) +
+    geom_line(stat = "identity") + 
+    scale_x_continuous(breaks = seq(1948, 2020, 4)) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45))
+
+# Example: excellent plot; "pretty" customized theme.
+my_pretty_theme <- theme_bw() + 
+    theme(panel.border = element_blank(),
+          plot.title = element_text(size = 15, hjust = 0.5), 
+          axis.text.x = element_text(angle = 45, hjust = 1),
+          axis.text = element_text(size = 12),
+          strip.text = element_text(size = 18),
+          axis.line = element_line(colour = "black"),
+          legend.position = "top",
+          legend.text = element_text(size = 12))
+
+ggplot(d_popvote, aes(x = year, y = pv2p, colour = party)) +
+    geom_line(stat = "identity") +
+    scale_color_manual(values = c("dodgerblue4", "firebrick1"), name = "") +
+    xlab("") + ## no need to label an obvious axis
+    ylab("Two-Party National Popular Vote (%)") +
+    ggtitle("Presidential Vote Share (1948-2020)") + 
+    scale_x_continuous(breaks = seq(1948, 2020, 4)) +
+    my_pretty_theme
+```
+
+
+
+
