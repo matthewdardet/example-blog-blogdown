@@ -8,7 +8,7 @@ tags: []
 ---
 
 $$
-Y_{2024_i} = 0.75 \times Y_{2020\_voteshare_i} + 0.25 \times Y_{2016\_voteshare_i}
+Y_{2024_i} = 0.75 \times Y_{2020_{\text{voteshare}_i}} + 0.25 \times Y_{2016_{\text{voteshare}_i}}
 $$
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
